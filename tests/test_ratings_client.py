@@ -27,8 +27,8 @@ OMDB_FIGHT_CLUB = {
 MDBLIST_FIGHT_CLUB = {"ratings": [
     {"source": "imdb", "value": 8.8, "score": 88, "votes": 2512345, "url": "https://www.imdb.com/title/tt0137523/"},
     {"source": "tomatoes", "value": 79, "score": 79, "votes": 180, "url": "https://www.rottentomatoes.com/m/fight_club"},
-    {"source": "popcorn", "value": 96, "score": 96, "votes": 250000},
-    {"source": "letterboxd", "value": 4.3, "score": 86, "votes": 1200000},
+    {"source": "popcorn", "value": 96, "score": 96, "votes": 250000, "url": "/m/fight_club"},
+    {"source": "letterboxd", "value": 4.3, "score": 86, "votes": 1200000, "url": 167},
     {"source": "metacritic", "value": None, "score": None, "votes": None},
     {"source": "somethingnew", "value": 1, "score": 1},
 ]}
@@ -82,6 +82,8 @@ class TestMDBList:
         assert rows["Rotten Tomatoes (critics)"]["value"] == "79%"
         assert rows["Rotten Tomatoes (audience)"]["value"] == "96%"
         assert rows["Letterboxd"]["value"] == "4.3/5"
+        assert rows["Rotten Tomatoes (audience)"]["url"] == ""  # relative slug dropped
+        assert rows["IMDb"]["url"].startswith("https://")
         assert "Metacritic (critics)" not in rows  # null value skipped
         assert len(rows) == 4  # unknown source skipped
 

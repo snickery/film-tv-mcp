@@ -143,7 +143,10 @@ class MDBListClient(_KeyedClient):
                 "label": label,
                 "value": value,
                 "detail": _votes(r["votes"]) if r.get("votes") else "",
-                "url": r.get("url") or "",
+                # MDBList's "url" is usually a site-relative slug or id
+                # ("/m/fight_club", or even the int 167), so keep only
+                # absolute links.
+                "url": url if (url := str(r.get("url") or "")).startswith("http") else "",
             })
         return rows
 
